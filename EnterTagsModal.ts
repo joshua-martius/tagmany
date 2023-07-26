@@ -1,10 +1,11 @@
 import { App, Modal, Setting } from 'obsidian';
 
 export class EnterTagsModal extends Modal {
-    result: string;
-    onSubmit: (result: string) => void;
+    tags: string;
+    includeSubfolders: boolean;
+    onSubmit: (tags: string, includeSubfolders: boolean) => void;
 
-    constructor(app: App, onSubmit: (result: string) => void) {
+    constructor(app: App, onSubmit: (tags: string, includeSubfolders: boolean) => void) {
         super(app);
         this.onSubmit = onSubmit;
     }
@@ -18,7 +19,14 @@ export class EnterTagsModal extends Modal {
             .setName("Tags (separate with commas)")
             .addText((text) =>
                 text.onChange((value) => {
-                    this.result = value
+                    this.tags = value
+                }));
+
+        new Setting(contentEl)
+            .setName("Include Subfolders?")
+            .addToggle((toggle) =>
+                toggle.onChange((value) => {
+                    this.includeSubfolders = value
                 }));
 
         new Setting(contentEl)
@@ -28,7 +36,7 @@ export class EnterTagsModal extends Modal {
                     .setCta()
                     .onClick(() => {
                         this.close();
-                        this.onSubmit(this.result);
+                        this.onSubmit(this.tags, this.includeSubfolders);
                     }));
     }
 
