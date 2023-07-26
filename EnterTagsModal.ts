@@ -15,7 +15,7 @@ export class EnterTagsModal extends Modal {
         contentEl.createEl("h2", { text: "What tags do you want to add to the Notes?" });
 
         new Setting(contentEl)
-            .setName("Tags")
+            .setName("Tags (separate with commas)")
             .addText((text) =>
                 text.onChange((value) => {
                     this.result = value

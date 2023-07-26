@@ -1,7 +1,7 @@
 {
 	"id": "tag-many",
 	"name": "TagMany",
-	"version": "0.0.1",
+	"version": "0.1.0",
 	"minAppVersion": "0.15.0",
 	"description": "This plugin allows you to add the same tag(s) to multiple notes in a folder at once.",
 	"author": "Joshua Martius",
