@@ -51,7 +51,6 @@ export default class TagManyPlugin extends Plugin {
 			await this.app.vault.modify(note as TFile, newNoteContent);
 			counter[0]++;
 		}
-		new Notification("TagMany", { body: `Added tags to ${counter[0]} notes!` });
   }
 }
 
