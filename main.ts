@@ -52,6 +52,6 @@ export default class TagManyPlugin extends Plugin {
 			counter[0]++;
 		}
 		new Notification("TagMany", { body: `Added tags to ${counter[0]} notes!` });
-	}
+  }
 }
 
