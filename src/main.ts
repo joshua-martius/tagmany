@@ -15,7 +15,8 @@ export default class TagManyPlugin extends Plugin {
 						.onClick(async () => {
 							new EnterTagsModal(this.app, async (tags, includeSubfolders) => {
 								if (tags) {
-									await this.addTagsToNotes(tags.split(","), folder, includeSubfolders);
+									const tagArray = tags.split(",");
+									await this.addTagsToNotes(tagArray, folder, includeSubfolders);
 								}
 							}).open();
 						});
