@@ -10,7 +10,7 @@ export default class TagManyPlugin extends Plugin {
 				if (!(folder instanceof TFolder)) return;
 				menu.addItem((item) => {
 					item
-						.setTitle("Tag all Notes in this Folder")
+						.setTitle("Tag all notes in this folder")
 						.setIcon("tags")
 						.onClick(async () => {
 							new EnterTagsModal(this.app, async (tags, includeSubfolders) => {
