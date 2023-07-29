@@ -13,7 +13,7 @@ export class EnterTagsModal extends Modal {
     onOpen() {
         const { contentEl } = this;
 
-        contentEl.createEl("h2", { text: "What tags do you want to add to the Notes?" });
+        contentEl.createEl("h2", { text: "What tags do you want to add to the notes?" });
 
         new Setting(contentEl)
             .setName("Tags (separate with commas)")
@@ -23,7 +23,7 @@ export class EnterTagsModal extends Modal {
                 }));
 
         new Setting(contentEl)
-            .setName("Include Subfolders?")
+            .setName("Include subfolders?")
             .addToggle((toggle) =>
                 toggle.onChange((value) => {
                     this.includeSubfolders = value
