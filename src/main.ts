@@ -25,23 +25,22 @@ export default class TagManyPlugin extends Plugin {
 	}
 
 	onunload(): void {
-		
+
 	}
 
 	async addTagsToNotes(tags: string[], folder: TFolder, includeSubfolders: boolean, counter: number[] = [0]) {
 		for (const note of folder.children) {
-			if(note.name.endsWith(".canvas")) continue; // ignore canvas files for now
 			if (note instanceof TFolder) {
 				if (includeSubfolders) await this.addTagsToNotes(tags, note, true, counter);
 				continue;
 			}
-			
+
 			this.app.fileManager.processFrontMatter(note as TFile, (frontmatter) => {
 				frontmatter.tags = [...new Set([...frontmatter.tags, ...tags])];
 			})
-			
+
 			counter[0]++;
 		}
-  }
+	}
 }
 
