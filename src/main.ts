@@ -1,5 +1,5 @@
 import { Plugin, TFile, TFolder } from 'obsidian';
-import { EnterTagsModal } from 'EnterTagsModal';
+import { EnterTagsModal } from './EnterTagsModal';
 
 export default class TagManyPlugin extends Plugin {
 	settings: TagManyPlugin;
