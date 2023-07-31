@@ -1,6 +1,7 @@
 # TagMany Obsidian Plugin
-This plugin allows you to add the same tag(s) to multiple notes within a specific directory. 
-Using it on the root directory is not supported (yet).
+Allows you to add the same tag(s) to multiple notes within a specific directory.
+
+Using it on the root directory and tagging canvases is not supported (yet). 
 
 ## How to Use
 1. Right-click the folder where you want to add the tags.
