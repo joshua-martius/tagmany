@@ -2,8 +2,6 @@ import { Plugin, TFile, TFolder } from 'obsidian';
 import { EnterTagsModal } from './EnterTagsModal';
 
 export default class TagManyPlugin extends Plugin {
-	settings: TagManyPlugin;
-
 	async onload() {
 		this.registerEvent(
 			this.app.workspace.on("file-menu", (menu, folder) => {
@@ -32,14 +30,17 @@ export default class TagManyPlugin extends Plugin {
 	async addTagsToNotes(tags: string[], folder: TFolder, includeSubfolders: boolean, counter: number[] = [0]) {
 		for (const note of folder.children) {
 			if (note instanceof TFolder) {
+				// If its a folder and subfolders are to be included, recurse into subfolders
 				if (includeSubfolders) await this.addTagsToNotes(tags, note, true, counter);
 				continue;
 			}
 
+			// Add tags to frontmatter
 			this.app.fileManager.processFrontMatter(note as TFile, (frontmatter) => {
 				frontmatter.tags = [...new Set([...frontmatter.tags, ...tags])];
 			})
 
+			// Update counter
 			counter[0]++;
 		}
 	}

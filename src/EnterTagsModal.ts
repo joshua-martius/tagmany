@@ -32,7 +32,7 @@ export class EnterTagsModal extends Modal {
         new Setting(contentEl)
             .addButton((btn) =>
                 btn
-                    .setButtonText("Submit")
+                    .setButtonText("Add tags")
                     .setCta()
                     .onClick(() => {
                         this.close();
