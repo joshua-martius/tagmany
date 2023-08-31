@@ -37,7 +37,8 @@ export default class TagManyPlugin extends Plugin {
 
 			// Add tags to frontmatter
 			this.app.fileManager.processFrontMatter(note as TFile, (frontmatter) => {
-				frontmatter.tags = [...new Set([...frontmatter.tags, ...tags])];
+				if(!frontmatter.tags) frontmatter.tags = new Set(tags);
+				else frontmatter.tags = [...new Set([...frontmatter.tags, ...tags])];
 			})
 
 			// Update counter

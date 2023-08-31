@@ -1,7 +1,7 @@
 {
-	"name": "obsidian-sample-plugin",
-	"version": "1.0.0",
-	"description": "This is a sample plugin for Obsidian (https://obsidian.md)",
+	"name": "tag-many",
+	"version": "0.2.7",
+	"description": "Add the same tag(s) to multiple notes in a folder (optionally including subfolders) at once.",
 	"main": "main.js",
 	"scripts": {
 		"dev": "node esbuild.config.mjs",
