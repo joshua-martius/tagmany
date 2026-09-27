@@ -1,15 +1,6 @@
 import { Plugin, TFile, TFolder } from 'obsidian';
 import { EnterTagsModal } from './EnterTagsModal';
-
-function normalizeTags(input: string): string[] {
-  const normalized = input
-    .split(',')
-    .map((tag) => tag.trim().replace(/^#+/, '').trim())
-    .filter((tag) => tag.length > 0);
-
-  return [...new Set(normalized)];
-}
-
+import { mergeTags, normalizeTags } from './tags';
 
 export default class TagManyPlugin extends Plugin {
 	async onload() {
@@ -45,8 +36,7 @@ export default class TagManyPlugin extends Plugin {
 			}
 
 			this.app.fileManager.processFrontMatter(note as TFile, (frontmatter) => {
-				const existingTags = Array.isArray(frontmatter.tags) ? frontmatter.tags : [];
-				frontmatter.tags = [...new Set([...existingTags, ...tags].map((tag) => tag.replace(/^#+/, '').trim()).filter(Boolean))];
+				mergeTags(frontmatter, tags);
 			});
 
 			counter[0]++;
