@@ -1,6 +1,6 @@
 {
 	"name": "tag-many",
-	"version": "0.2.7",
+	"version": "0.3.0",
 	"description": "Add the same tag(s) to multiple notes in a folder (optionally including subfolders) at once.",
 	"main": "main.js",
 	"scripts": {

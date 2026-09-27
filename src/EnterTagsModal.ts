@@ -1,8 +1,8 @@
 import { App, Modal, Setting } from 'obsidian';
 
 export class EnterTagsModal extends Modal {
-    tags: string;
-    includeSubfolders: boolean;
+    tags = "";
+    includeSubfolders = true;
     onSubmit: (tags: string, includeSubfolders: boolean) => void;
 
     constructor(app: App, onSubmit: (tags: string, includeSubfolders: boolean) => void) {
@@ -19,14 +19,14 @@ export class EnterTagsModal extends Modal {
             .setName("Tags (separate with commas)")
             .addText((text) =>
                 text.onChange((value) => {
-                    this.tags = value
+                    this.tags = value;
                 }));
 
         new Setting(contentEl)
             .setName("Include subfolders?")
             .addToggle((toggle) =>
-                toggle.onChange((value) => {
-                    this.includeSubfolders = value
+                toggle.setValue(this.includeSubfolders).onChange((value) => {
+                    this.includeSubfolders = value;
                 }));
 
         new Setting(contentEl)
@@ -41,7 +41,7 @@ export class EnterTagsModal extends Modal {
     }
 
     onClose() {
-        let { contentEl } = this;
+        const { contentEl } = this;
         contentEl.empty();
     }
 }

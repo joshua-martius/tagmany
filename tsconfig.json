@@ -1,13 +1,12 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "module": "nodenext",
+    "target": "ES2015",
     "inlineSourceMap": true,
     "inlineSources": true,
-    "module": "ESNext",
-    "target": "ES6",
     "allowJs": true,
     "noImplicitAny": true,
-    "moduleResolution": "node",
+    "moduleResolution": "nodenext",
     "importHelpers": true,
     "isolatedModules": true,
 	"strictNullChecks": true,

@@ -1,6 +1,16 @@
 import { Plugin, TFile, TFolder } from 'obsidian';
 import { EnterTagsModal } from './EnterTagsModal';
 
+function normalizeTags(input: string): string[] {
+  const normalized = input
+    .split(',')
+    .map((tag) => tag.trim().replace(/^#+/, '').trim())
+    .filter((tag) => tag.length > 0);
+
+  return [...new Set(normalized)];
+}
+
+
 export default class TagManyPlugin extends Plugin {
 	async onload() {
 		this.registerEvent(
@@ -12,9 +22,9 @@ export default class TagManyPlugin extends Plugin {
 						.setIcon("tags")
 						.onClick(async () => {
 							new EnterTagsModal(this.app, async (tags, includeSubfolders) => {
-								if (tags) {
-									const tagArray = tags.split(",");
-									await this.addTagsToNotes(tagArray, folder, includeSubfolders);
+								const normalizedTags = normalizeTags(tags);
+								if (normalizedTags.length > 0) {
+									await this.addTagsToNotes(normalizedTags, folder, includeSubfolders);
 								}
 							}).open();
 						});
@@ -30,18 +40,15 @@ export default class TagManyPlugin extends Plugin {
 	async addTagsToNotes(tags: string[], folder: TFolder, includeSubfolders: boolean, counter: number[] = [0]) {
 		for (const note of folder.children) {
 			if (note instanceof TFolder) {
-				// If its a folder and subfolders are to be included, recurse into subfolders
 				if (includeSubfolders) await this.addTagsToNotes(tags, note, true, counter);
 				continue;
 			}
 
-			// Add tags to frontmatter
 			this.app.fileManager.processFrontMatter(note as TFile, (frontmatter) => {
-				if(!frontmatter.tags) frontmatter.tags = new Set(tags);
-				else frontmatter.tags = [...new Set([...frontmatter.tags, ...tags])];
-			})
+				const existingTags = Array.isArray(frontmatter.tags) ? frontmatter.tags : [];
+				frontmatter.tags = [...new Set([...existingTags, ...tags].map((tag) => tag.replace(/^#+/, '').trim()).filter(Boolean))];
+			});
 
-			// Update counter
 			counter[0]++;
 		}
 	}
