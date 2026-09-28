@@ -29,12 +29,16 @@ export function coerceTags(value: unknown): string[] {
 }
 
 export function mergeTags(frontmatter: Record<string, any>, incoming: string[]): string[] {
-  const existing = [frontmatter.tags, frontmatter.Tags]
-    .flatMap((value) => coerceTags(value));
+  const tagKeys = Object.keys(frontmatter)
+    .filter((key) => key.toLowerCase() === 'tags');
+  const existing = tagKeys
+    .flatMap((key) => coerceTags(frontmatter[key]));
 
   const merged = [...new Set([...existing, ...incoming].map((tag) => normalizeTag(tag)).filter(Boolean))];
 
-  delete frontmatter.Tags;
+  tagKeys
+    .filter((key) => key !== 'tags')
+    .forEach((key) => delete frontmatter[key]);
   frontmatter.tags = merged;
 
   return merged;
